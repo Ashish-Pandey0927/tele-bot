@@ -9,6 +9,9 @@ const fs = require('fs');
 const { Telegraf } = require('telegraf');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
+require('http')
+  .createServer((req, res) => res.end('Bot is running'))
+  .listen(process.env.PORT || 3000);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function shuffle(arr) {
