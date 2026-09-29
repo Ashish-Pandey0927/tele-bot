@@ -1,7 +1,17 @@
 // Telegram MCQ quiz bot: native quiz polls, 30s timer, auto reveal.
-// Setup: npm init -y && npm install telegraf
-// Run:   BOT_TOKEN=your_token node bot.js
-// Put your questions in questions.txt (UTF-8) next to this file.
+// Setup: npm init -y && npm install telegraf dotenv
+// Run:   node bot.js   (BOT_TOKEN set in .env or the environment)
+//
+// Put two question banks next to this file:
+//   questions_cs.txt  (your 80 CS questions)
+//   questions_gs.txt  (your 40 GS questions)
+// Same format for both:
+//   प्र.1. question text        (or Q1. question text)
+//   (A) option
+//   (B) option
+//   उत्तर: (B)                  (or Answer: (B))
+//
+// /quiz runs ALL CS questions (shuffled) first, then ALL GS questions (shuffled).
 
 require('dotenv').config();
 
@@ -12,6 +22,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 require('http')
   .createServer((req, res) => res.end('Bot is running'))
   .listen(process.env.PORT || 3000);
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function shuffle(arr) {
@@ -24,14 +35,18 @@ function shuffle(arr) {
 }
 
 // Parses blocks like:
-// प्र.1. question text
+// प्र.1. question text   OR   Q1. question text
 // (A) option
 // (B) option
-// उत्तर: (B)
+// उत्तर: (B)   OR   Answer: (B)
 function loadQuestions(file) {
+  if (!fs.existsSync(file)) {
+    console.warn(`Warning: ${file} not found, skipping.`);
+    return [];
+  }
   const raw = fs.readFileSync(file, 'utf8');
   return raw
-    .split(/(?=प्र\.\s*\d+\.)/)
+    .split(/(?=(?:प्र\.\s*\d+\.|Q\.?\s*\d+\.))/)
     .map((block) => {
       const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
       const qLines = [];
@@ -39,12 +54,12 @@ function loadQuestions(file) {
       let answer = null;
       for (const l of lines) {
         let m;
-        if ((m = l.match(/^उत्तर:\s*\(([A-D])\)/))) {
-          answer = m[1].charCodeAt(0) - 65;
+        if ((m = l.match(/^(?:उत्तर|Answer)\s*:\s*\(([A-D])\)/i))) {
+          answer = m[1].toUpperCase().charCodeAt(0) - 65;
         } else if ((m = l.match(/^\(([A-D])\)\s*(.+)$/))) {
           options.push(m[2]);
         } else {
-          qLines.push(l.replace(/^प्र\.\s*\d+\.\s*/, ''));
+          qLines.push(l.replace(/^प्र\.\s*\d+\.\s*/, '').replace(/^Q\.?\s*\d+\.\s*/i, ''));
         }
       }
       if (!qLines.length || options.length < 2 || answer === null) return null;
@@ -53,35 +68,56 @@ function loadQuestions(file) {
     .filter(Boolean);
 }
 
-const questions = loadQuestions('./questions.txt');
-console.log(`Loaded ${questions.length} questions`);
+const csQuestions = loadQuestions('./questions_cs.txt');
+const gsQuestions = loadQuestions('./questions_gs.txt');
+console.log(`Loaded ${csQuestions.length} CS questions, ${gsQuestions.length} GS questions`);
 
 const running = new Map(); // chatId -> true while a quiz is active
 const polls = new Map();   // pollId -> { chatId, correct }
 const boards = new Map();  // chatId -> Map(userId -> { name, score })
 
-async function runQuiz(telegram, chatId, count) {
-  const set = shuffle(questions).slice(0, count);
+// Sends one shuffled-option poll for a question, tracks it, then waits out the timer.
+async function sendQuestion(telegram, chatId, item, label) {
+  const tagged = item.options.map((text, idx) => ({ text, ok: idx === item.answer }));
+  const mixed = shuffle(tagged);
+  const correct = mixed.findIndex((o) => o.ok);
+
+  const msg = await telegram.sendPoll(
+    chatId,
+    `${label}: ${item.q}`.slice(0, 300),
+    mixed.map((o) => o.text.slice(0, 100)),
+    { type: 'quiz', correct_option_id: correct, open_period: 30, is_anonymous: false }
+  );
+  polls.set(msg.poll.id, { chatId, correct });
+  await sleep(32000); // 30s poll + small gap before the next one
+}
+
+// Runs a full quiz session: all CS questions shuffled, then all GS questions shuffled.
+async function runQuiz(telegram, chatId) {
   running.set(chatId, true);
   boards.set(chatId, new Map());
 
-  for (let i = 0; i < set.length; i++) {
-    if (!running.get(chatId)) break;
+  const csSet = shuffle(csQuestions);
+  const gsSet = shuffle(gsQuestions);
+  const total = csSet.length + gsSet.length;
+  let n = 0;
 
-    // Shuffle options so the right answer is not always in the same slot
-    const tagged = set[i].options.map((text, idx) => ({ text, ok: idx === set[i].answer }));
-    const mixed = shuffle(tagged);
-    const correct = mixed.findIndex((o) => o.ok);
+  if (csSet.length) {
+    await telegram.sendMessage(chatId, `Starting CS round: ${csSet.length} questions.`);
+    for (const item of csSet) {
+      if (!running.get(chatId)) break;
+      n++;
+      await sendQuestion(telegram, chatId, item, `CS Q${n}/${total}`);
+    }
+  }
 
-    const msg = await telegram.sendPoll(
-      chatId,
-      `Q${i + 1}/${set.length}: ${set[i].q}`.slice(0, 300),
-      mixed.map((o) => o.text.slice(0, 100)),
-      { type: 'quiz', correct_option_id: correct, open_period: 30, is_anonymous: false }
-    );
-    polls.set(msg.poll.id, { chatId, correct });
-
-    await sleep(32000); // 30s poll + small gap before the next one
+  if (running.get(chatId) && gsSet.length) {
+    await telegram.sendMessage(chatId, `CS round done. Starting GS round: ${gsSet.length} questions.`);
+    for (const item of gsSet) {
+      if (!running.get(chatId)) break;
+      n++;
+      await sendQuestion(telegram, chatId, item, `GS Q${n}/${total}`);
+    }
   }
 
   const board = [...(boards.get(chatId) || new Map()).values()].sort((a, b) => b.score - a.score);
@@ -92,19 +128,24 @@ async function runQuiz(telegram, chatId, count) {
   running.delete(chatId);
 }
 
-bot.start((ctx) => ctx.reply('Send /quiz to start (default 10 questions) or /quiz 20 for 20. Use /stop to end.'));
+bot.start((ctx) =>
+  ctx.reply(
+    `Send /quiz to run all ${csQuestions.length} CS questions, then all ${gsQuestions.length} GS questions (both shuffled). Use /stop to end early.`
+  )
+);
 
 bot.command('quiz', (ctx) => {
   const chatId = ctx.chat.id;
-  if (running.get(chatId)) return ctx.reply('A quiz is already running. Use /stop to end it.');
-  const n = Math.min(parseInt(ctx.message.text.split(' ')[1]) || 10, questions.length);
-  runQuiz(ctx.telegram, chatId, n).catch((e) => {
+  if (running.has(chatId)) return ctx.reply('A quiz is already running. Use /stop to end it.');
+  if (!csQuestions.length && !gsQuestions.length) return ctx.reply('No questions loaded. Check questions_cs.txt / questions_gs.txt on the server.');
+  runQuiz(ctx.telegram, chatId).catch((e) => {
     console.error(e);
     running.delete(chatId);
   }); // not awaited on purpose, Telegraf handlers time out after 90s
 });
 
 bot.command('stop', (ctx) => {
+  if (!running.has(ctx.chat.id)) return ctx.reply('No quiz is running.');
   running.set(ctx.chat.id, false);
   ctx.reply('Stopping after the current question.');
 });

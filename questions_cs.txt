@@ -1,0 +1,496 @@
+1. If a computer system uses 16-bit memory addresses and each memory word is 1 byte, what is the maximum addressable memory capacity?
+(A) 32 KB
+(B) 128 KB
+(C) 64 KB
+(D) 256 KB
+Answer: (C)
+2. Which logic gate produces an output of 0 ONLY when both of its inputs are 1?
+(A) NAND
+(B) NOR
+(C) XOR
+(D) AND
+Answer: (A)
+3. What is the postfix equivalent of the infix expression: A + B * C?
+(A) A B + C *
+(B) + A * B C
+(C) A B C + *
+(D) A B C * +
+Answer: (D)
+4. In a binary search tree (BST) with n nodes, what is the worst-case time complexity of searching for an element?
+(A) O(\log n)
+(B) O(n)
+(C) O(1)
+(D) O(n \log n)
+Answer: (B)
+5. Which CPU scheduling algorithm allocates CPU time to processes in circular order using a predefined time slice?
+(A) Round Robin
+(B) Shortest Job First
+(C) Priority Scheduling
+(D) First-Come, First-Served
+Answer: (A)
+6. In a relational database, which integrity constraint specifies that a foreign key value must either match a primary key value in another table or be null?
+(A) Domain Integrity
+(B) Entity Integrity
+(C) Referential Integrity
+(D) Key Integrity
+Answer: (C)
+7. Which layer of the OSI model handles data encryption, compression, and translation?
+(A) Application Layer
+(B) Session Layer
+(C) Transport Layer
+(D) Presentation Layer
+Answer: (D)
+8. What is the output of the following Python code snippet?
+s = "Computer"
+print(s[1:6:2])
+
+(A) opt
+(B) ou
+(C) cmp
+(D) opu
+Answer: (A)
+9. Which of the following is an example of dynamic testing where software execution occurs without looking at internal program logic?
+(A) Code Inspection
+(B) Black-box Testing
+(C) White-box Testing
+(D) Static Analysis
+Answer: (B)
+10. How many 3-to-8 line decoders with an enable input are required to construct a 4-to-16 line decoder?
+(A) 4
+(B) 3
+(C) 2
+(D) 1
+Answer: (C)
+11. What is the minimum number of queues needed to implement a Stack?
+(A) 3
+(B) 1
+(C) 4
+(D) 2
+Answer: (D)
+12. Which page replacement algorithm chooses the page that will not be used for the longest period of time in the future?
+(A) Optimal Page Replacement
+(B) First-In, First-Out
+(C) Least Recently Used
+(D) Most Recently Used
+Answer: (A)
+13. Which normal form deals with the removal of multivalued dependencies?
+(A) 2NF
+(B) 4NF
+(C) 3NF
+(D) BCNF
+Answer: (B)
+14. What is the usable host address range for the subnet containing the host 172.16.10.65/26?
+(A) 172.16.10.1 to 172.16.10.62
+(B) 172.16.10.64 to 172.16.10.127
+(C) 172.16.10.65 to 172.16.10.126
+(D) 172.16.10.1 to 172.16.10.128
+Answer: (C)
+15. Which of the following collections in Python does NOT allow duplicate elements and is unordered?
+(A) List
+(B) Tuple
+(C) Dictionary
+(D) Set
+Answer: (D)
+16. The concept of creating a class based on an existing class to promote code reusability is termed:
+(A) Inheritance
+(B) Polymorphism
+(C) Encapsulation
+(D) Abstraction
+Answer: (A)
+17. What will be the value printed after executing the following Python code?
+d = {"a": 1, "b": 2}
+print(d.get("c", 0))
+
+(A) KeyError
+(B) 0
+(C) None
+(D) 1
+Answer: (B)
+18. What is the maximum number of nodes in a binary tree of depth k (where depth of the root is 0)?
+(A) 2^k
+(B) 2^{k-1}
+(C) 2^{k+1} - 1
+(D) 2k - 1
+Answer: (C)
+19. Which disk scheduling algorithm services requests by moving the disk arm in one direction to the end, then reverses direction immediately?
+(A) FCFS
+(B) C-SCAN
+(C) SSTF
+(D) SCAN
+Answer: (D)
+20. In SQL, which command is used to remove an index named idx_emp from a table?
+(A) DROP INDEX idx_emp;
+(B) DELETE INDEX idx_emp;
+(C) REMOVE INDEX idx_emp;
+(D) ALTER INDEX idx_emp DROP;
+Answer: (A)
+21. What is the default subnet mask for an IP address belonging to Class C?
+(A) 255.0.0.0
+(B) 255.255.255.0
+(C) 255.255.0.0
+(D) 255.255.255.192
+Answer: (B)
+22. Which addressing mode is typically used to implement program relocatability?
+(A) Direct Addressing Mode
+(B) Immediate Addressing Mode
+(C) Relative Addressing Mode
+(D) Register Addressing Mode
+Answer: (C)
+23. What is the time complexity of building a binary heap from an unsorted array of n elements?
+(A) O(n^2)
+(B) O(n \log n)
+(C) O(\log n)
+(D) O(n)
+Answer: (D)
+24. Which condition ensures that a database transaction is either fully completed or completely rolled back without partial execution?
+(A) Atomicity
+(B) Consistency
+(C) Isolation
+(D) Durability
+Answer: (A)
+25. Which protocol uses two separate connections (one for control commands on port 21 and one for data transfer on port 20)?
+(A) SMTP
+(B) FTP
+(C) HTTP
+(D) SSH
+Answer: (B)
+26. In Python, what is the output of the expression type([]) is list?
+(A) False
+(B) None
+(C) True
+(D) TypeError
+Answer: (C)
+27. In software engineering, which model combines the iterative nature of prototyping with the controlled and systematic aspects of the waterfall model?
+(A) Agile Model
+(B) Big Bang Model
+(C) Incremental Model
+(D) Spiral Model
+Answer: (D)
+28. An operating system uses a page table stored in main memory. If a memory access takes 100 ns and a TLB hit takes 20 ns, what is the effective memory access time with a TLB hit ratio of 80%?
+(A) 140 ns
+(B) 120 ns
+(C) 160 ns
+(D) 100 ns
+Answer: (A)
+29. Which of the following sorting algorithms works by repeatedly finding the minimum element from the unsorted segment and placing it at the beginning?
+(A) Insertion Sort
+(B) Selection Sort
+(C) Bubble Sort
+(D) Quick Sort
+Answer: (B)
+30. Which SQL operator is used to test for the existence of any record in a subquery?
+(A) LIKE
+(B) IN
+(C) EXISTS
+(D) BETWEEN
+Answer: (C)
+31. What is the size of the MAC address in an Ethernet network?
+(A) 32 bits
+(B) 64 bits
+(C) 128 bits
+(D) 48 bits
+Answer: (D)
+32. A flip-flop that toggles its state whenever both of its inputs are set to logic high (1) is a:
+(A) T Flip-Flop / JK Flip-Flop
+(B) SR Flip-Flop
+(C) D Flip-Flop
+(D) Master-Slave SR
+Answer: (A)
+33. What is the output of the following Python expression: print(5 and 3)?
+(A) True
+(B) 3
+(C) 5
+(D) False
+Answer: (B)
+34. In a B-Tree of order m, what is the maximum number of children any internal node can have?
+(A) m-1
+(B) \lceil m/2 \rceil
+(C) m
+(D) 2m
+Answer: (C)
+35. Which scheduling algorithm is non-preemptive and selects the process with the smallest execution time?
+(A) Round Robin
+(B) Shortest Job First (SJF)
+(C) Shortest Remaining Time First (SRTF)
+(D) Priority Scheduling (Preemptive)
+Answer: (B)
+36. In Relational Algebra, which operator selects rows that satisfy a specified predicate?
+(A) Projection (\Pi)
+(B) Join (\bowtie)
+(C) Selection (\sigma)
+(D) Division (\div)
+Answer: (C)
+37. Which network topology requires a multipoint connection and uses terminators at both ends of a shared backbone cable?
+(A) Star
+(B) Mesh
+(C) Ring
+(D) Bus
+Answer: (D)
+38. What is the result of 10 // -3 in Python?
+(A) -4
+(B) -3
+(C) -3.33
+(D) -2
+Answer: (A)
+39. How many address bits are required to uniquely access 1 MB of memory if memory is byte-addressable?
+(A) 16 bits
+(B) 20 bits
+(C) 24 bits
+(D) 32 bits
+Answer: (B)
+40. What is the in-degree of the root node in a directed tree representation of a hierarchy?
+(A) 1
+(B) Undefined
+(C) 0
+(D) Equal to the number of children
+Answer: (C)
+41. Which mapping technique in cache memory allows a main memory block to be loaded into any available cache line?
+(A) Direct Mapping
+(B) Set-Associative Mapping
+(C) Fully Associative Mapping
+(D) Sector Mapping
+Answer: (C)
+42. Which data structure is best suited for evaluating an arithmetic expression written in postfix format?
+(A) Queue
+(B) Stack
+(C) Circular Linked List
+(D) Priority Queue
+Answer: (B)
+43. A semaphore whose integer value can range only between 0 and 1 is known as a:
+(A) Counting Semaphore
+(B) Binary Semaphore (Mutex)
+(C) Monitor
+(D) Spinlock
+Answer: (B)
+44. What does the HAVING clause filter in an SQL statement?
+(A) Individual records before aggregation
+(B) Groups created by the GROUP BY clause
+(C) Unindexed foreign keys
+(D) Rows during a cross join
+Answer: (B)
+45. Which protocol uses distance-vector routing logic and calculates route metrics using hop counts?
+(A) OSPF
+(B) BGP
+(C) RIP
+(D) IS-IS
+Answer: (C)
+46. What will be the output of the following Python code snippet?
+x = [1, 2, 3]
+y = x.copy()
+print(x is y, x == y)
+
+(A) True True
+(B) False True
+(C) True False
+(D) False False
+Answer: (B)
+47. In the Spiral Model of software engineering, which quadrant focuses directly on risk analysis and mitigation?
+(A) Objective Determination
+(B) Risk Assessment and Reduction
+(C) Engineering and Testing
+(D) Customer Evaluation
+Answer: (B)
+48. How many outputs does a full subtractor digital circuit produce?
+(A) 1
+(B) 2
+(C) 3
+(D) 4
+Answer: (B)
+49. What is the average-case time complexity of searching an element in a balanced AVL tree with n nodes?
+(A) O(1)
+(B) O(n)
+(C) O(\log n)
+(D) O(n^2)
+Answer: (C)
+50. Which memory management mechanism relocates non-contiguous physical pages into a contiguous virtual address space?
+(A) Segmentation
+(B) Paging
+(C) Swapping
+(D) Partitioning
+Answer: (B)
+51. Which level of database architecture deals with how data is physically stored on disk blocks and indexed?
+(A) Internal (Physical) Level
+(B) Conceptual (Logical) Level
+(C) External (View) Level
+(D) User Interface Level
+Answer: (A)
+52. In a sliding window flow control protocol, if the sender window size is W_s and receiver window size is 1, the protocol is:
+(A) Stop-and-Wait
+(B) Selective Repeat
+(C) Go-Back-N
+(D) Slotted ALOHA
+Answer: (C)
+53. Which of the following statements about Python functions is correct?
+(A) Default arguments must precede non-default arguments
+(B) A function cannot return multiple values
+(C) Arguments are passed by assignment (object reference)
+(D) Lambda functions can span multiple code lines
+Answer: (C)
+54. Which software testing approach verifies that previously developed and tested software still functions correctly after changes?
+(A) Unit Testing
+(B) Integration Testing
+(C) Regression Testing
+(D) Acceptance Testing
+Answer: (C)
+55. How many flip-flops are needed to design a synchronous counter that counts from 0 up to 31?
+(A) 4
+(B) 5
+(C) 6
+(D) 32
+Answer: (B)
+56. In a singly linked list, which operation requires traversing the entire list in the worst case?
+(A) Deleting the head node
+(B) Inserting after a given pointer
+(C) Deleting the last node
+(D) Inserting at the beginning
+Answer: (C)
+57. What condition causes the "priority inversion" problem in multitasking operating systems?
+(A) A low-priority process holds a shared lock needed by a high-priority process
+(B) Two high-priority processes enter a mutual deadlock
+(C) A process requests non-existent CPU resources
+(D) Memory limits cause page table eviction
+Answer: (A)
+58. What type of SQL join returns all records from the left table and matched records from the right table?
+(A) INNER JOIN
+(B) FULL OUTER JOIN
+(C) LEFT OUTER JOIN
+(D) CROSS JOIN
+Answer: (C)
+59. Which transport layer port is reserved for the Secure Sockets Layer / HTTPS protocol?
+(A) 80
+(B) 25
+(C) 110
+(D) 443
+Answer: (D)
+60. What will be the output of print(bool("False")) in Python?
+(A) False
+(B) True
+(C) None
+(D) ValueError
+Answer: (B)
+61. A system contains M units of a resource and N processes. Deadlock is strictly avoided if each process requests at most K units and:
+(A) M > N \times (K - 1)
+(B) M = N \times K
+(C) M < N \times (K - 1)
+(D) M + K \le N
+Answer: (A)
+62. Which data structure is used to implement Dijkstra’s single-source shortest path algorithm efficiently?
+(A) FIFO Queue
+(B) Min-Priority Queue
+(C) Double-ended Queue
+(D) Stack
+Answer: (B)
+63. What is the hexadecimal equivalent of the octal number 157?
+(A) 6F
+(B) 7E
+(C) 5F
+(D) 8B
+Answer: (A)
+64. In database theory, lossless-join decomposition is guaranteed if the intersection of two decomposed relations forms a:
+(A) Foreign key in neither relation
+(B) Super key in at least one of the relations
+(C) Composite attribute
+(D) Non-prime attribute
+Answer: (B)
+65. Which collision resolution protocol in Ethernet networks uses an exponential backoff algorithm?
+(A) Token Passing
+(B) CSMA/CA
+(C) CSMA/CD
+(D) Pure ALOHA
+Answer: (C)
+66. What will be the output of the following Python code?
+def fn(val, lst=[]):
+    lst.append(val)
+    return lst
+print(fn(1))
+print(fn(2))
+
+(A) [1] then [2]
+(B) [1] then [1, 2]
+(C) [1, 2] then [1, 2]
+(D) Error
+Answer: (B)
+67. In Object-Oriented Software Design, which design principle states that software entities should be open for extension but closed for modification?
+(A) Single Responsibility Principle
+(B) Open-Closed Principle
+(C) Liskov Substitution Principle
+(D) Interface Segregation Principle
+Answer: (B)
+68. How many 2-input NAND gates are needed to implement a standard 2-input EX-OR gate?
+(A) 3
+(B) 5
+(C) 4
+(D) 6
+Answer: (C)
+69. What is the recurrence relation for the Merge Sort algorithm?
+(A) T(n) = T(n-1) + O(1)
+(B) T(n) = 2T(n/2) + O(n)
+(C) T(n) = 2T(n/2) + O(1)
+(D) T(n) = T(n/2) + O(n)
+Answer: (B)
+70. In Unix-like OS, which command changes file access permissions?
+(A) chown
+(B) ps
+(C) grep
+(D) chmod
+Answer: (D)
+71. Which relational database operation is equivalent to a Cartesian product followed by a selection condition?
+(A) Theta Join
+(B) Project
+(C) Set Difference
+(D) Rename
+Answer: (A)
+72. What is the maximum payload size in an Ethernet frame?
+(A) 512 bytes
+(B) 1024 bytes
+(C) 1500 bytes
+(D) 65535 bytes
+Answer: (C)
+73. In Python, which built-in function returns an iterator containing pairs of index and element from an iterable?
+(A) range()
+(B) zip()
+(C) map()
+(D) enumerate()
+Answer: (D)
+74. What is the primary metric calculated using McCabe’s Cyclomatic Complexity?
+(A) Lines of physical source code
+(B) Number of linearly independent execution paths
+(C) Estimated project delivery date
+(D) Database query latency
+Answer: (B)
+75. What is the 9's complement of the decimal number 3465?
+(A) 6534
+(B) 6535
+(C) 7645
+(D) 6544
+Answer: (A)
+76. Which data structure is used by the operating system for holding ready-to-run processes with the same priority in FCFS order?
+(A) Priority Queue
+(B) FIFO Queue
+(C) LIFO Stack
+(D) Doubly Linked List
+Answer: (B)
+77. In relational algebra, which operator is represented by the division symbol (\div)?
+(A) Projection
+(B) Natural Join
+(C) Division
+(D) Intersection
+Answer: (C)
+78. Which IP protocol is utilized by the ping utility to test network connectivity?
+(A) IGMP
+(B) ICMP
+(C) ARP
+(D) BGP
+Answer: (B)
+79. What is the output of the following Python expression: print({1, 2, 3} - {2, 3, 4})?
+(A) {1}
+(B) {4}
+(C) {1, 4}
+(D) set()
+Answer: (A)
+80. Which encryption standard uses a symmetric block cipher with key sizes of 128, 192, or 256 bits?
+(A) RSA
+(B) AES
+(C) Diffie-Hellman
+(D) SHA-1
+Answer: (B)
