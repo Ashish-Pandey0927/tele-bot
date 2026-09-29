@@ -25,6 +25,21 @@ require('http')
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Telegram polls are plain text only (no LaTeX), so swap common math commands
+// for readable symbols/text.
+function cleanMath(text) {
+  return text
+    .replace(/\\lceil\s*/g, '⌈').replace(/\s*\\rceil/g, '⌉')
+    .replace(/\\lfloor\s*/g, '⌊').replace(/\s*\\rfloor/g, '⌋')
+    .replace(/\\log/g, 'log')
+    .replace(/\\times/g, '×')
+    .replace(/\\div/g, '÷')
+    .replace(/\\le\b/g, '≤').replace(/\\ge\b/g, '≥')
+    .replace(/\\bowtie/g, '⋈')
+    .replace(/\\Pi\b/g, 'Π').replace(/\\sigma\b/g, 'σ')
+    .replace(/\\/g, ''); // strip any leftover backslashes
+}
+
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -45,8 +60,9 @@ function loadQuestions(file) {
     return [];
   }
   const raw = fs.readFileSync(file, 'utf8');
+  // A new question starts at a line beginning with "प्र.N.", "QN." or just "N."
   return raw
-    .split(/(?=(?:प्र\.\s*\d+\.|Q\.?\s*\d+\.))/)
+    .split(/(?=^\s*(?:प्र\.\s*\d+\.|Q\.?\s*\d+\.|\d+\.)\s)/m)
     .map((block) => {
       const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
       const qLines = [];
@@ -57,13 +73,15 @@ function loadQuestions(file) {
         if ((m = l.match(/^(?:उत्तर|Answer)\s*:\s*\(([A-D])\)/i))) {
           answer = m[1].toUpperCase().charCodeAt(0) - 65;
         } else if ((m = l.match(/^\(([A-D])\)\s*(.+)$/))) {
-          options.push(m[2]);
+          options.push(cleanMath(m[2]));
         } else {
-          qLines.push(l.replace(/^प्र\.\s*\d+\.\s*/, '').replace(/^Q\.?\s*\d+\.\s*/i, ''));
+          qLines.push(
+            cleanMath(l.replace(/^प्र\.\s*\d+\.\s*/, '').replace(/^Q\.?\s*\d+\.\s*/i, '').replace(/^\d+\.\s*/, ''))
+          );
         }
       }
       if (!qLines.length || options.length < 2 || answer === null) return null;
-      return { q: qLines.join(' '), options, answer };
+      return { q: qLines.join('\n'), options, answer };
     })
     .filter(Boolean);
 }
